@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Queru Sport - Playeras deportivas con estilo. Deporte y estilo en una sola prenda.">
+  <title>Queru Sport - Deporte y estilo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Rajdhani:wght@700&display=swap');
+    
+    :root {
+      --primary: #FF6B35;
+      --secondary: #004E89;
+      --accent: #F77F00;
+      --dark: #1A1A2E;
+      --light: #F4F4F4;
+      --success: #2ECC71;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: var(--light); color: var(--dark); }
+
+    .top-bar { background: var(--dark); color: white; padding: 0.5rem 0; font-size: 0.875rem; }
+    .top-bar a { color: white; text-decoration: none; margin: 0 0.5rem; transition: 0.3s; }
+    .top-bar a:hover { color: var(--primary); }
+
+    .navbar-custom { background: white; box-shadow: 0 2px 15px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; padding: 1rem 0; }
+    .navbar-brand { font-family: 'Rajdhani', sans-serif; font-size: 2rem; font-weight: 700; color: var(--secondary) !important; }
+    .navbar-brand span { color: var(--primary); }
+    .nav-link { color: var(--dark) !important; font-weight: 500; margin: 0 0.5rem; position: relative; }
+    .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 50%; width: 0; height: 3px; background: var(--primary); transition: 0.3s; transform: translateX(-50%); }
+    .nav-link:hover::after { width: 80%; }
+    .nav-link:hover { color: var(--primary) !important; }
+
+    .btn-cart-nav { background: var(--primary); color: white; border: none; padding: 0.6rem 1.5rem; border-radius: 50px; font-weight: 600; position: relative; transition: 0.3s; }
+    .btn-cart-nav:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3); }
+    .cart-badge { position: absolute; top: -5px; right: -5px; background: var(--secondary); color: white; border-radius: 50%; padding: 0.2rem 0.5rem; font-size: 0.7rem; }
+
+    .hero-banner { background: linear-gradient(135deg, var(--secondary) 0%, #003366 100%); color: white; padding: 5rem 0; position: relative; overflow: hidden; }
+    .hero-banner::before { content: ''; position: absolute; top: -50%; right: -10%; width: 600px; height: 600px; background: rgba(255, 107, 53, 0.1); border-radius: 50%; animation: float 8s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+    .hero-title { font-family: 'Rajdhani', sans-serif; font-size: 4rem; font-weight: 800; margin-bottom: 1rem; }
+    .hero-subtitle { font-size: 1.5rem; font-weight: 300; margin-bottom: 2rem; }
+    .btn-hero { background: var(--primary); color: white; border: none; padding: 1rem 2.5rem; font-size: 1.1rem; font-weight: 600; border-radius: 50px; transition: 0.3s; margin: 0.5rem; }
+    .btn-hero:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4); }
+    .btn-hero-outline { background: transparent; border: 2px solid white; }
+    .btn-hero-outline:hover { background: white; color: var(--secondary); }
+
+    .section { padding: 5rem 0; }
+    .section-title { font-family: 'Rajdhani', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--secondary); margin-bottom: 1rem; position: relative; display: inline-block; }
+    .section-title::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 80px; height: 4px; background: var(--primary); }
+    .section-subtitle { color: #666; font-size: 1.1rem; margin-bottom: 3rem; }
+
+    .product-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: 0.4s; height: 100%; position: relative; }
+    .product-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+    .product-badge { position: absolute; top: 15px; right: 15px; background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; z-index: 2; }
+    .product-badge.new { background: var(--success); }
+    .product-badge.sale { background: var(--accent); }
+    .product-img-container { position: relative; height: 300px; background: white; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .product-img-container img { max-height: 250px; object-fit: cover; transition: 0.4s; }
+    .product-card:hover .product-img-container img { transform: scale(1.1); }
+    .product-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 78, 137, 0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; }
+    .product-card:hover .product-overlay { opacity: 1; }
+    .btn-quick-view { background: white; color: var(--secondary); border: none; padding: 0.7rem 1.5rem; border-radius: 25px; font-weight: 600; transition: 0.3s; }
+    .btn-quick-view:hover { background: var(--primary); color: white; }
+    .product-body { padding: 1.5rem; }
+    .product-category { color: #999; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+    .product-name { font-size: 1.2rem; font-weight: 600; color: var(--dark); margin-bottom: 0.5rem; }
+    .product-description { color: #666; font-size: 0.9rem; margin-bottom: 1rem; }
+    .product-rating { color: var(--accent); margin-bottom: 1rem; }
+    .product-price { font-size: 1.8rem; font-weight: 700; color: var(--secondary); }
+    .product-price-old { font-size: 1.2rem; color: #999; text-decoration: line-through; margin-left: 0.5rem; }
+    .btn-add-cart { background: var(--primary); color: white; border: none; padding: 0.8rem; width: 100%; border-radius: 10px; font-weight: 600; transition: 0.3s; margin-top: 1rem; }
+    .btn-add-cart:hover { background: var(--accent); transform: translateY(-2px); }
+
+    .promo-section { background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); padding: 4rem 0; color: white; }
+    .promo-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 15px; padding: 2rem; text-align: center; transition: 0.3s; border: 2px solid rgba(255, 255, 255, 0.2); }
+    .promo-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.2); }
+    .promo-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+    .gallery-item { position: relative; overflow: hidden; border-radius: 15px; height: 300px; cursor: pointer; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .gallery-item:hover img { transform: scale(1.2); }
+    .gallery-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(0, 78, 137, 0.8), rgba(255, 107, 53, 0.8)); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-title { color: white; font-size: 1.5rem; font-weight: 700; }
+
+    .blog-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: 0.3s; height: 100%; }
+    .blog-card:hover { transform: translateY(-5px); }
+    .blog-img { width: 100%; height: 200px; object-fit: cover; }
+    .blog-body { padding: 1.5rem; }
+    .blog-date { color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .blog-title { font-size: 1.2rem; font-weight: 600; color: var(--dark); margin-bottom: 0.5rem; }
+    .btn-read-more { color: var(--secondary); font-weight: 600; text-decoration: none; }
+    .btn-read-more:hover { color: var(--primary); }
+
+    .contact-form { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+    .form-control, .form-select { border: 2px solid #e0e0e0; border-radius: 10px; padding: 0.8rem 1rem; transition: 0.3s; }
+    .form-control:focus, .form-select:focus { border-color: var(--primary); box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25); }
+    .btn-submit { background: var(--secondary); color: white; border: none; padding: 1rem 2.5rem; border-radius: 50px; font-weight: 600; transition: 0.3s; }
+    .btn-submit:hover { background: var(--primary); transform: translateY(-2px); }
+    .contact-info-card { background: var(--secondary); color: white; padding: 2rem; border-radius: 15px; height: 100%; }
+    .contact-info-item { margin-bottom: 1.5rem; }
+    .contact-info-item i { color: var(--primary); font-size: 1.5rem; margin-bottom: 0.5rem; }
+
+    .about-img { border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; }
+    .feature-item { display: flex; align-items: center; margin-bottom: 1rem; }
+    .feature-icon { background: var(--primary); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; }
+
+    .modal-header-custom { background: linear-gradient(135deg, var(--secondary) 0%, #003366 100%); color: white; border: none; }
+    .table-cart img { width: 80px; height: 80px; object-fit: cover; border-radius: 10px; }
+    .cart-total { background: var(--light); padding: 1.5rem; border-radius: 10px; margin-top: 1rem; }
+    .btn-checkout { background: var(--success); color: white; border: none; padding: 1rem 2rem; border-radius: 50px; font-weight: 600; transition: 0.3s; }
+    .btn-checkout:hover { background: #27AE60; transform: translateY(-2px); }
+
+    .footer { background: var(--dark); color: white; padding: 3rem 0 1rem; }
+    .footer-title { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; margin-bottom: 1rem; color: var(--primary); }
+    .footer a { color: #ccc; text-decoration: none; transition: 0.3s; }
+    .footer a:hover { color: var(--primary); }
+    .social-links a { display: inline-block; width: 40px; height: 40px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; text-align: center; line-height: 40px; margin-right: 0.5rem; transition: 0.3s; }
+    .social-links a:hover { background: var(--primary); transform: translateY(-3px); }
+
+    .toast-notification { position: fixed; top: 80px; right: 20px; z-index: 9999; min-width: 300px; background: white; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); padding: 1rem 1.5rem; display: flex; align-items: center; animation: slideIn 0.4s; }
+    @keyframes slideIn { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    .toast-icon { font-size: 1.5rem; margin-right: 1rem; }
+    .toast-success { border-left: 4px solid var(--success); }
+    .toast-error { border-left: 4px solid #E74C3C; }
+    .toast-info { border-left: 4px solid #3498DB; }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2.5rem; }
+      .hero-subtitle { font-size: 1.2rem; }
+      .section-title { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <i class="fas fa-phone"></i> +52 899 123 4567
+          <i class="fas fa-envelope ms-3"></i> info@querusport.com
+        </div>
+        <div>
+          <a href="https://www.facebook.com/?locale=es_LA"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com"><i class="fab fa-instagram"></i></a>
+          <a href="https://x.com/?lang=es"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+      <a class="navbar-brand" href="#inicio">
+        <i class="fas fa-running"></i> QUERU <span>SPORT</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#productos">Productos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#galeria">Galería</a></li>
+          <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+        </ul>
+        <button class="btn btn-cart-nav" onclick="abrirCarrito()">
+          <i class="fas fa-shopping-cart"></i> Carrito
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <section id="inicio" class="hero-banner">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1 class="hero-title">QUERU SPORT</h1>
+          <p class="hero-subtitle">Deporte y estilo en cada movimiento</p>
+          <p class="mb-4">Descubre nuestra colección de playeras deportivas diseñadas para maximizar tu rendimiento.</p>
+          <a href="#productos" class="btn btn-hero">Ver Productos</a>
+          <a href="#nosotros" class="btn btn-hero btn-hero-outline">Conocer Más</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="promo-section">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="promo-card">
+            <div class="promo-icon"><i class="fas fa-shipping-fast"></i></div>
+            <h4>Envío Gratis</h4>
+            <p>En compras mayores a $500</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="promo-card">
+            <div class="promo-icon"><i class="fas fa-trophy"></i></div>
+            <h4>Calidad Premium</h4>
+            <p>Materiales de primera</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="promo-card">
+            <div class="promo-icon"><i class="fas fa-undo"></i></div>
+            <h4>30 Días Garantía</h4>
+            <p>Devolución sin complicaciones</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="productos" class="section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Productos Destacados</h2>
+        <p class="section-subtitle">Las mejores playeras deportivas</p>
+      </div>
+      <div class="row g-4" id="productosContainer">
+        <!-- Los productos se cargarán dinámicamente con JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <section id="galeria" class="section bg-light">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Galería de Estilo</h2>
+        <p class="section-subtitle">Inspírate con nuestros looks</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="gallery-item">
+            <img src="https://www.standout.co.uk/blog/wp-content/uploads/2021/12/gymwear-cover--1024x689.png?w=400" alt="Estilo 1">
+            <div class="gallery-overlay">
+              <h4 class="gallery-title">Training Mode</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="gallery-item">
+            <img src="https://luson.com/wp-content/uploads/2025/03/orange-soccer-jerseys-casual-outfit.jpg?w=400" alt="Estilo 2">
+            <div class="gallery-overlay">
+              <h4 class="gallery-title">Urban Style</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="gallery-item">
+            <img src="https://www.theprospectordaily.com/wp-content/uploads/2015/09/UTEPUniforms_01WEB.jpg?w=400" alt="Estilo 3">
+            <div class="gallery-overlay">
+              <h4 class="gallery-title">Play Time</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="gallery-item">
+            <img src="https://chicinsights.com/wp-content/uploads/2024/10/how-to-style-jersey-cute-outfits-110-683x1024.jpeg?w=400" alt="Estilo 4">
+            <div class="gallery-overlay">
+              <h4 class="gallery-title">Street Wear</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="gallery-item">
+            <img src="https://ucarecdn.com/5e19bdd9-51fc-484c-bb45-d3bb9ed18c44/-/format/auto/-/preview/3000x3000/-/quality/lighter/?w=400" alt="Estilo 5">
+            <div class="gallery-overlay">
+              <h4 class="gallery-title">Active Wear</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="gallery-item">
+            <img src="https://i0.wp.com/mustangnews.net/wp-content/uploads/2025/02/Intersquad-Practice-Nadeen-Maniord-_1-scaled.jpg?fit=2000%2C1333&ssl=1?w=400" alt="Estilo 6">
+            <div class="gallery-overlay">
+              <h4 class="gallery-title">Pro Series</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog" class="section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Blog & Noticias</h2>
+        <p class="section-subtitle">Últimas tendencias deportivas</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="blog-card">
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w-400" class="blog-img" alt="Blog 1">
+            <div class="blog-body">
+              <p class="blog-date"><i class="far fa-calendar"></i> 15 Nov 2024</p>
+              <h4 class="blog-title">5 Ejercicios para Mejorar tu Rendimiento</h4>
+              <p class="text-muted">Descubre las mejores rutinas de entrenamiento.</p>
+              <a href="#" class="btn-read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="blog-card">
+            <img src="https://i.ytimg.com/vi/yHHWooStqT8/sddefault.jpg?w=400" class="blog-img" alt="Blog 2">
+            <div class="blog-body">
+              <p class="blog-date"><i class="far fa-calendar"></i> 10 Nov 2024</p>
+              <h4 class="blog-title">Cómo Elegir la Playera Perfecta</h4>
+              <p class="text-muted">Guía completa para seleccionar tu prenda ideal.</p>
+              <a href="#" class="btn-read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="blog-card">
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400" class="blog-img" alt="Blog 3">
+            <div class="blog-body">
+              <p class="blog-date"><i class="far fa-calendar"></i> 5 Nov 2024</p>
+              <h4 class="blog-title">Tendencias en Moda Deportiva 2024</h4>
+              <p class="text-muted">Conoce los estilos que marcan tendencia.</p>
+              <a href="#" class="btn-read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="nosotros" class="section bg-light">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <img src="https://images-dh-production-baselayer.dailyhive.com/uploads/2016/10/Robson-Sports-has-a-huge-selection-of-jerseys-and-caps-Robson-SportsFacebook.jpg?format=auto&width=988?w=600" alt="Sobre Nosotros" class="about-img">
+        </div>
+        <div class="col-lg-6">
+          <h2 class="section-title">Sobre Queru Sport</h2>
+          <p class="mb-4">Somos una marca mexicana dedicada a crear playeras deportivas de alta calidad que combinan rendimiento y estilo.</p>
+          <p class="mb-4">Cada prenda está diseñada para el atleta moderno, utilizando tecnología textil de vanguardia.</p>
+          <div class="mt-4">
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-check"></i></div>
+              <div>
+                <h5 class="mb-0">Materiales Premium</h5>
+                <p class="mb-0 text-muted">Telas respirables y duraderas</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-check"></i></div>
+              <div>
+                <h5 class="mb-0">Diseño Innovador</h5>
+                <p class="mb-0 text-muted">Estilo y funcionalidad</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><i class="fas fa-check"></i></div>
+              <div>
+                <h5 class="mb-0">Fabricación Nacional</h5>
+                <p class="mb-0 text-muted">Hecho en México</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Contáctanos</h2>
+        <p class="section-subtitle">Estamos aquí para ayudarte</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <div class="contact-form">
+            <form id="contactForm" class="needs-validation" novalidate>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Nombre *</label>
+                  <input type="text" class="form-control" required>
+                  <div class="invalid-feedback">Ingresa tu nombre</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Email *</label>
+                  <input type="email" class="form-control" required>
+                  <div class="invalid-feedback">Ingresa un email válido</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Teléfono</label>
+                  <input type="tel" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Asunto *</label>
+                  <select class="form-select" required>
+                    <option value="">Selecciona</option>
+                    <option>Consulta</option>
+                    <option>Pedido</option>
+                    <option>Devolución</option>
+                  </select>
+                  <div class="invalid-feedback">Selecciona un asunto</div>
+                </div>
+                <div class="col-12">
+                  <label class="form-label fw-semibold">Mensaje *</label>
+                  <textarea class="form-control" rows="5" required></textarea>
+                  <div class="invalid-feedback">Ingresa tu mensaje</div>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-submit">Enviar Mensaje</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="contact-info-card">
+            <h4 class="mb-4">Información de Contacto</h4>
+            <div class="contact-info-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <h5>Dirección</h5>
+              <p>Av. Deportiva 123, Col. Centro</p>
+              <p>Ciudad de México, CDMX</p>
+            </div>
+            <div class="contact-info-item">
+              <i class="fas fa-phone"></i>
+              <h5>Teléfono</h5>
+              <p>+52 899 123 4567</p>
+            </div>
+            <div class="contact-info-item">
+              <i class="fas fa-envelope"></i>
+              <h5>Email</h5>
+              <p>info@querusport.com</p>
+            </div>
+            <div class="contact-info-item">
+              <i class="fas fa-clock"></i>
+              <h5>Horario de Atención</h5>
+              <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
+              <p>Sábados: 10:00 AM - 2:00 PM</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <h3 class="footer-title">
+            <i class="fas fa-running"></i> QUERU <span>SPORT</span>
+          </h3>
+          <p>Deporte y estilo en cada movimiento. Playeras deportivas de alta calidad para el atleta moderno.</p>
+          <div class="social-links mt-4">
+            <a href="https://www.facebook.com"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.youtube.com"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h4 class="footer-title">Enlaces</h4>
+          <ul class="list-unstyled">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#productos">Productos</a></li>
+            <li><a href="#galeria">Galería</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h4 class="footer-title">Servicios</h4>
+          <ul class="list-unstyled">
+            <li><a href="#">Envío Express</a></li>
+            <li><a href="#">Devoluciones</a></li>
+            <li><a href="#">Garantía</a></li>
+            <li><a href="#">Preguntas Frecuentes</a></li>
+            <li><a href="#">Términos y Condiciones</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 mb-4">
+          <h4 class="footer-title">Suscríbete</h4>
+          <p>Suscríbete para recibir nuestras ofertas y novedades.</p>
+          <div class="input-group mt-3">
+            <input type="email" class="form-control" placeholder="Tu email">
+            <button class="btn btn-primary" type="button">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+      <div class="text-center">
+        <p class="mb-0">© 2024 Queru Sport. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal del Carrito -->
+  <div class="modal fade" id="cartModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header modal-header-custom">
+          <h5 class="modal-title"><i class="fas fa-shopping-cart"></i> Mi Carrito</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table table-cart">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Precio</th>
+                  <th>Cantidad</th>
+                  <th>Subtotal</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="cartItems">
+                <!-- Los items del carrito se cargarán aquí -->
+              </tbody>
+            </table>
+          </div>
+          <div class="cart-total">
+            <div class="row">
+              <div class="col-md-6">
+                <h5>Resumen de Compra</h5>
+                <p class="mb-1">Subtotal: <span id="cartSubtotal">$0.00</span></p>
+                <p class="mb-1">Envío: <span id="cartShipping">$0.00</span></p>
+                <hr>
+                <h5>Total: <span id="cartTotal">$0.00</span></h5>
+              </div>
+              <div class="col-md-6 d-flex align-items-center justify-content-end">
+                <button class="btn btn-danger me-2" onclick="vaciarCarrito()">
+                  <i class="fas fa-trash"></i> Vaciar Carrito
+                </button>
+                <button class="btn btn-checkout" onclick="procederPago()">
+                  <i class="fas fa-credit-card"></i> Proceder al Pago
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Variables globales
+    let cart = JSON.parse(localStorage.getItem('queruSportCart')) || [];
+    let products = [];
+
+    // Datos de productos (simulando base de datos)
+    const productosData = [
+      {
+    id: 1,
+    name: "Playera Soccer",
+    category: "Soccer",
+    description: "Tecnología Dry-Fit que mantiene tu cuerpo fresco y ligero durante todo el partido.",
+    price: 549.99,
+    image: "https://www.studio-88.co.za/media/catalog/product/cache/60023b40f56fdff39b9c495b8e044aef/n/i/niks625n-nike-fcb-3rpm-navy-hm3437-v1_jpg.jpg?w=400",
+    badge: "sale",
+    rating: 4.5
+  },
+  {
+    id: 2,
+    name: "Playera Baseball",
+    category: "Baseball",
+    description: "Tela transpirable diseñada para mayor movilidad y soporte en cada lanzamiento.",
+    price: 699.99,
+    oldPrice: null,
+    image: "https://m.media-amazon.com/images/I/61LVitThsVL._AC_UY1000_.jpg?w=400",
+    badge: "new",
+    rating: 4.8
+  },
+  {
+    id: 3,
+    name: "Playera American Football",
+    category: "American Football",
+    description: "Confort y resistencia superior para enfrentar el contacto en cada jugada.",
+    price: 429.99,
+    image: "/img/american.png?w=400",
+    badge: "",
+    rating: 4.3
+  },
+  {
+    id: 4,
+    name: "Playera Gym Power",
+    category: "Gimnasio",
+    description: "Corte ergonómico que mejora el rango de movimiento durante tus rutinas de fuerza.",
+    price: 649.99,
+    oldPrice: null,
+    image: "https://gymtier.com/cdn/shop/files/NAVY-angle_959e6b5f-6ca0-423e-b8ab-edc88ab4942f.webp?v=1762341333?w=400",
+    badge: "new",
+    rating: 4.7
+  },
+  {
+    id: 5,
+    name: "Playera Basketball",
+    category: "Basketball",
+    description: "Ligera y flexible para soportar cambios de ritmo y saltos explosivos.",
+    price: 749.99,
+    image: "/img/basket.png?w=400",
+    badge: "sale",
+    rating: 4.9
+  },
+  {
+    id: 6,
+    name: "Playera Golf",
+    category: "Golf",
+    description: "Elegancia deportiva con tela suave que favorece un swing fluido.",
+    price: 399.99,
+    oldPrice: null,
+    image: "/img/golf.png?w=400",
+    badge: "",
+    rating: 4.4
+  }
+    ];
+
+    // Inicializar la aplicación
+    document.addEventListener('DOMContentLoaded', function() {
+      initApp();
+    });
+
+    function initApp() {
+      products = productosData;
+      loadProducts();
+      updateCartCount();
+      loadCartItems();
+      setupEventListeners();
+    }
+
+    // Cargar productos en la página
+    function loadProducts() {
+      const container = document.getElementById('productosContainer');
+      container.innerHTML = '';
+
+      products.forEach(product => {
+        const productCard = `
+          <div class="col-md-6 col-lg-4">
+            <div class="product-card">
+              <div class="product-img-container">
+                <img src="${product.image}" alt="${product.name}">
+                <div class="product-overlay">
+                  <button class="btn btn-quick-view" onclick="quickView(${product.id})">
+                    <i class="fas fa-eye"></i> Vista Rápida
+                  </button>
+                </div>
+              </div>
+              <div class="product-body">
+                <p class="product-category">${product.category}</p>
+                <h5 class="product-name">${product.name}</h5>
+                <p class="product-description">${product.description}</p>
+                <div class="product-rating">
+                  ${generateStars(product.rating)}
+                  <span class="ms-2">${product.rating}</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <span class="product-price">$${product.price.toFixed(2)}</span>
+                    ${product.oldPrice ? `<span class="product-price-old">$${product.oldPrice.toFixed(2)}</span>` : ''}
+                  </div>
+                </div>
+                <button class="btn btn-add-cart" onclick="addToCart(${product.id})">
+                  <i class="fas fa-cart-plus"></i> Agregar al Carrito
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+        container.innerHTML += productCard;
+      });
+    }
+
+    // Generar estrellas para calificación
+    function generateStars(rating) {
+      let stars = '';
+      const fullStars = Math.floor(rating);
+      const hasHalfStar = rating % 1 >= 0.5;
+
+      for (let i = 0; i < fullStars; i++) {
+        stars += '<i class="fas fa-star"></i>';
+      }
+      if (hasHalfStar) {
+        stars += '<i class="fas fa-star-half-alt"></i>';
+      }
+      const emptyStars = 5 - Math.ceil(rating);
+      for (let i = 0; i < emptyStars; i++) {
+        stars += '<i class="far fa-star"></i>';
+      }
+      return stars;
+    }
+
+    // Funciones del carrito
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      const existingItem = cart.find(item => item.id === productId);
+      
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          quantity: 1
+        });
+      }
+
+      saveCart();
+      updateCartCount();
+      showToast('Producto agregado al carrito', 'success');
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter(item => item.id !== productId);
+      saveCart();
+      updateCartCount();
+      loadCartItems();
+      showToast('Producto eliminado del carrito', 'error');
+    }
+
+    function updateQuantity(productId, newQuantity) {
+      if (newQuantity < 1) {
+        removeFromCart(productId);
+        return;
+      }
+
+      const item = cart.find(item => item.id === productId);
+      if (item) {
+        item.quantity = parseInt(newQuantity);
+        saveCart();
+        loadCartItems();
+      }
+    }
+
+    function vaciarCarrito() {
+      if (cart.length === 0) {
+        showToast('El carrito ya está vacío', 'info');
+        return;
+      }
+
+      if (confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
+        cart = [];
+        saveCart();
+        updateCartCount();
+        loadCartItems();
+        showToast('Carrito vaciado', 'error');
+      }
+    }
+
+    function saveCart() {
+      localStorage.setItem('queruSportCart', JSON.stringify(cart));
+    }
+
+    function updateCartCount() {
+      const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+      document.getElementById('cartCount').textContent = totalItems;
+    }
+
+    function loadCartItems() {
+      const cartItemsContainer = document.getElementById('cartItems');
+      const cartSubtotal = document.getElementById('cartSubtotal');
+      const cartShipping = document.getElementById('cartShipping');
+      const cartTotal = document.getElementById('cartTotal');
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `
+          <tr>
+            <td colspan="5" class="text-center py-5">
+              <i class="fas fa-shopping-cart fa-3x mb-3 text-muted"></i>
+              <h5>Tu carrito está vacío</h5>
+              <p class="text-muted">Agrega algunos productos para comenzar</p>
+            </td>
+          </tr>
+        `;
+        cartSubtotal.textContent = '$0.00';
+        cartShipping.textContent = '$0.00';
+        cartTotal.textContent = '$0.00';
+        return;
+      }
+
+      let itemsHTML = '';
+      let subtotal = 0;
+
+      cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+
+        itemsHTML += `
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <img src="${item.image}" alt="${item.name}" class="me-3">
+                <div>
+                  <h6 class="mb-0">${item.name}</h6>
+                  <small class="text-muted">ID: ${item.id}</small>
+                </div>
+              </div>
+            </td>
+            <td>$${item.price.toFixed(2)}</td>
+            <td>
+              <div class="input-group input-group-sm" style="width: 120px;">
+                <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                <input type="number" class="form-control text-center" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)">
+                <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
+              </div>
+            </td>
+            <td>$${itemTotal.toFixed(2)}</td>
+            <td>
+              <button class="btn btn-sm btn-danger" onclick="removeFromCart(${item.id})">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+
+      const shipping = subtotal > 500 ? 0 : 50;
+      const total = subtotal + shipping;
+
+      cartItemsContainer.innerHTML = itemsHTML;
+      cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+      cartShipping.textContent = shipping === 0 ? 'Gratis' : `$${shipping.toFixed(2)}`;
+      cartTotal.textContent = `$${total.toFixed(2)}`;
+    }
+
+    function abrirCarrito() {
+      loadCartItems();
+      const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+      cartModal.show();
+    }
+
+    function quickView(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      const modalContent = `
+        <div class="modal fade" id="quickViewModal" tabindex="-1">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">${product.name}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <img src="${product.image}" alt="${product.name}" class="img-fluid rounded">
+                  </div>
+                  <div class="col-md-6">
+                    <h4>${product.name}</h4>
+                    <p class="text-muted">${product.category}</p>
+                    <div class="product-rating mb-3">
+                      ${generateStars(product.rating)}
+                      <span class="ms-2">${product.rating} (24 reseñas)</span>
+                    </div>
+                    <p>${product.description}</p>
+                    <div class="mb-3">
+                      <h3 class="text-primary">$${product.price.toFixed(2)}</h3>
+                      ${product.oldPrice ? `<del class="text-muted">$${product.oldPrice.toFixed(2)}</del>` : ''}
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Talla:</label>
+                      <select class="form-select">
+                        <option>Chica</option>
+                        <option>Mediana</option>
+                        <option selected>Grande</option>
+                        <option>Extra Grande</option>
+                      </select>
+                    </div>
+                    <button class="btn btn-primary w-100" onclick="addToCart(${product.id}); $('#quickViewModal').modal('hide')">
+                      <i class="fas fa-cart-plus"></i> Agregar al Carrito
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Crear modal dinámicamente
+      if (!document.getElementById('quickViewModal')) {
+        const modalDiv = document.createElement('div');
+        modalDiv.innerHTML = modalContent;
+        document.body.appendChild(modalDiv.firstElementChild);
+      }
+
+      const quickViewModal = new bootstrap.Modal(document.getElementById('quickViewModal'));
+      quickViewModal.show();
+    }
+
+    function procederPago() {
+      if (cart.length === 0) {
+        showToast('Agrega productos al carrito primero', 'error');
+        return;
+      }
+
+      const modalContent = `
+        <div class="modal fade" id="checkoutModal" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-success text-white">
+                <h5 class="modal-title"><i class="fas fa-check-circle"></i> Simulación de Pago</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body text-center">
+                <i class="fas fa-shopping-bag fa-4x text-success mb-3"></i>
+                <h4>¡Gracias por tu compra!</h4>
+                <p>Este es un prototipo funcional. En una tienda real, aquí procesaríamos tu pago.</p>
+                <div class="alert alert-info">
+                  <strong>Resumen del pedido:</strong><br>
+                  Productos: ${cart.reduce((total, item) => total + item.quantity, 0)}<br>
+                  Total: $${document.getElementById('cartTotal').textContent.replace('$', '')}
+                </div>
+                <p>Los datos se han procesado correctamente en el navegador.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success" onclick="completarCompra()">Completar Compra</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      if (!document.getElementById('checkoutModal')) {
+        const modalDiv = document.createElement('div');
+        modalDiv.innerHTML = modalContent;
+        document.body.appendChild(modalDiv.firstElementChild);
+      }
+
+      const checkoutModal = new bootstrap.Modal(document.getElementById('checkoutModal'));
+      checkoutModal.show();
+    }
+
+    function completarCompra() {
+      // Simular compra exitosa
+      const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+      const totalAmount = document.getElementById('cartTotal').textContent;
+
+      // Vaciar carrito después de compra
+      cart = [];
+      saveCart();
+      updateCartCount();
+
+      // Cerrar modales
+      $('#cartModal').modal('hide');
+      $('#checkoutModal').modal('hide');
+
+      // Mostrar confirmación
+      showToast(`¡Compra exitosa! ${totalItems} productos por ${totalAmount}`, 'success');
+    }
+
+    function showToast(message, type = 'info') {
+      // Crear toast si no existe
+      if (!document.getElementById('toastContainer')) {
+        const toastContainer = document.createElement('div');
+        toastContainer.id = 'toastContainer';
+        toastContainer.style.position = 'fixed';
+        toastContainer.style.top = '80px';
+        toastContainer.style.right = '20px';
+        toastContainer.style.zIndex = '9999';
+        document.body.appendChild(toastContainer);
+      }
+
+      const icons = {
+        success: 'fas fa-check-circle text-success',
+        error: 'fas fa-exclamation-circle text-danger',
+        info: 'fas fa-info-circle text-info'
+      };
+
+      const toast = document.createElement('div');
+      toast.className = `toast-notification toast-${type}`;
+      toast.innerHTML = `
+        <div class="toast-icon">
+          <i class="${icons[type]}"></i>
+        </div>
+        <div>
+          <strong>${type === 'success' ? 'Éxito' : type === 'error' ? 'Error' : 'Información'}</strong>
+          <p class="mb-0">${message}</p>
+        </div>
+      `;
+
+      document.getElementById('toastContainer').appendChild(toast);
+
+      // Remover toast después de 3 segundos
+      setTimeout(() => {
+        toast.style.animation = 'slideIn 0.4s reverse';
+        setTimeout(() => {
+          if (toast.parentNode) {
+            toast.parentNode.removeChild(toast);
+          }
+        }, 400);
+      }, 3000);
+    }
+
+    function setupEventListeners() {
+      // Validación del formulario de contacto
+      const contactForm = document.getElementById('contactForm');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(event) {
+          if (!contactForm.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          } else {
+            event.preventDefault();
+            showToast('Mensaje enviado correctamente (simulación)', 'success');
+            contactForm.reset();
+            contactForm.classList.remove('was-validated');
+          }
+          contactForm.classList.add('was-validated');
+        }, false);
+      }
+
+      // Smooth scroll para enlaces internos
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            e.preventDefault();
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>
